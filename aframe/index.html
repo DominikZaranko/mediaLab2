@@ -6,9 +6,32 @@
     <meta name="description" content="Basic example for Point Cloud component."></meta>
     <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
     <script src="js/aframe-pointcloud-component.min.js"></script>
+    <script src="js/controls.js" defer></script>
   </head>
   <body>
-    <a-scene>
+    <div id="ui">
+      <div class="row">
+        <button onclick="zoom(5)">Zoom +</button>
+        <button onclick="zoom(-5)">Zoom -</button>
+      </div>
+
+      <div class="row">
+        <button onclick="moveCamera(0, 0.1, 0)">Up</button>
+        <button onclick="moveCamera(0, -0.1, 0)">Down</button>
+        <button onclick="moveCamera(-0.1, 0, 0)">Left</button>
+        <button onclick="moveCamera(0.1, 0, 0)">Right</button>
+        <button onclick="moveCamera(0, 0, -0.1)">Forward</button>
+        <button onclick="moveCamera(0, 0, 0.1)">Back</button>
+      </div>
+
+      <div class="row">
+        <button onclick="rotateCamera(5, 0)">Pitch Up</button>
+        <button onclick="rotateCamera(-5, 0)">Pitch Down</button>
+        <button onclick="rotateCamera(0, 5)">Yaw Left</button>
+        <button onclick="rotateCamera(0, -5)">Yaw Right</button>
+      </div>
+    </div>
+    <a-scene id="a-scene">
       <a-assets>
         <img id="skyTexture" src="skybox.jpg">
       </a-assets>
@@ -17,6 +40,9 @@
       <a-light type="point" intensity="2" position="2 4 4"></a-light>
       <a-sky src="#skyTexture" radius="60"></a-sky>
       <a-entity laser-controls line="color: red; opacity: 0.75"></a-entity>
+      <a-entity id="camera-rig" position="0 0 0">
+        <a-entity id="camera" camera look-controls></a-entity>
+      </a-entity>
       <a-pointcloud 
         scale="0.1 0.1 0.1" 
         position="0 0.08 -2.5" 
@@ -26,5 +52,29 @@
       </a-pointcloud>
 
     </a-scene>
+
+    <style>
+      #ui {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      #ui .row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      #ui button {
+        padding: 8px 12px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+    </style>
   </body>
 </html>
