@@ -18,15 +18,15 @@ function moveCamera(x, y, z) {
 }
 
 function rotateCamera(pitch, yaw) {
-  const rig = document.getElementById("camera-rig");
-  const rot = rig.getAttribute("rotation");
+  const camera = document.getElementById("camera");
+  const rot = camera.getAttribute("rotation");
 
   let newPitch = rot.x + pitch;
   let newYaw = rot.y + yaw;
 
   newPitch = Math.max(-89, Math.min(89, newPitch));
 
-  rig.setAttribute("rotation", {
+  camera.setAttribute("rotation", {
     x: newPitch,
     y: newYaw,
     z: rot.z
